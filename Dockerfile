@@ -12,8 +12,10 @@ WORKDIR /go/src/github.com/jmorganca/ollama
 
 COPY . .
 
-# Install Go modules and dependencies
-RUN /usr/local/go/bin/go mod download
+ENV GOARCH=$TARGETARCH
+ENV GOFLAGS=$GOFLAGS
+
+# Skip the go mod download step as there are no Go modules defined
 RUN /usr/local/go/bin/go generate ./...
 RUN /usr/local/go/bin/go build .
 
